@@ -1,0 +1,58 @@
+<head>
+<style>
+body {
+    background-color: linen;
+}
+
+h1 {
+    color: maroon;
+    margin-left: 40px;
+} 
+
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+td {
+    text-align: center;
+    height: 24px;
+}
+
+a{
+    text-decoration: none;
+}
+</style>
+
+</head>
+
+<nav >
+<button><a href="/contacts/"><h1>Home</h1></a></button>
+<button><a href="/contacts/create"><h1>Add New Contact</h1></a></button>
+</nav>
+
+{% if people_list %}
+
+<table style="width:100%">
+  <tr>
+    <th>Name</th>
+    <th>Phone</th> 
+    <th>eamil</th>
+    <th>Update</th> 
+    <th>Delete</th>
+  </tr>
+  {% for people in people_list %}
+  <tr>
+    <td><a href='{% url "detail" id=people.id %}'>{{ people.name }}</a></td>
+    <td><a href="/contacts/{{ people.id }}/">{{ people.phone }}</a></td>
+    <td><a href="/contacts/{{ people.id }}/">{{ people.email }}</a></td> 
+    <td><button><a href="/contacts/{{ people.id }}/edit">Update</a></button></td> 
+    <td><button><a href="/contacts/{{ people.id }}/delete">Delete</a></button></td>
+    {% endfor %}
+  </tr>
+
+</table>
+{% else %}
+    <p>No contacts are available.</p>
+    <button><a href="/contacts/create">Add New Contact</a></button>
+{% endif %}
