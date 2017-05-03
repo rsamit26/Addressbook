@@ -15,4 +15,4 @@ class people(models.Model):
 		return self.name
 
 	def get_absolute_url(self):
-		return reverse("detail", kwargs = {"id": self.id})
+		return reverse("contacts:detail", kwargs={"id": self.id})

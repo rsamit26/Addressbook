@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.shortcuts import get_object_or_404,render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from .forms import contactform
@@ -21,7 +22,7 @@ def update(request,id = None):
 		instance = form.save(commit = False)
 		instance.save()
 		return HttpResponseRedirect(instance.get_absolute_url())
-
+		messages.success(request, "Saved")
 	context = {
 	"name": instance.name,
 	"instance": instance,
@@ -33,7 +34,10 @@ def create(request):
 	if form.is_valid():
 		instance = form.save(commit = False)
 		instance.save()
+		messages.success(request, "Successfully Created")
 		return HttpResponseRedirect(instance.get_absolute_url())
+	else:
+		messages.success(request, "Not Successfully Created")
 	context = {
 	"form": form,
 	}
@@ -42,4 +46,4 @@ def delete(request,id = None):
 	instance = get_object_or_404(people,id=id)
 	instance.delete()
 	messages.success(request,"Successfully Deleted")
-	return render(request,'contacts')
+	return redirect("contacts:index")

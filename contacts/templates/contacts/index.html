@@ -22,17 +22,33 @@ td {
 a{
     text-decoration: none;
 }
+nav button{
+  background-color: lightgreen;
+  color: black;
+  font: sans-serif;
+  font-size: 18px;
+  border-radius: 5px;
+  width: 150px;
+  height: 60px;
+  display: inline;
+}
+
+.btn:hover
+{
+background-image:none;
+background-color:green;
+}
+
 </style>
 
 </head>
 
 <nav >
-<button><a href="/contacts/"><h1>Home</h1></a></button>
-<button><a href="/contacts/create"><h1>Add New Contact</h1></a></button>
+<button class="btn"><a href="/contacts/">Home</a></button>
+<button class="btn"><a href="/contacts/create">Add Contact</a></button>
 </nav>
 
 {% if people_list %}
-
 <table style="width:100%">
   <tr>
     <th>Name</th>
@@ -42,10 +58,11 @@ a{
     <th>Delete</th>
   </tr>
   {% for people in people_list %}
+ <!-- {% url "contacts:detail" id=people.id %} -->
   <tr>
-    <td><a href='{% url "detail" id=people.id %}'>{{ people.name }}</a></td>
-    <td><a href="/contacts/{{ people.id }}/">{{ people.phone }}</a></td>
-    <td><a href="/contacts/{{ people.id }}/">{{ people.email }}</a></td> 
+    <td><a href='{{ people.get_absolute_url }}'>{{ people.name }}</a></td>
+    <td>{{ people.phone }}</td>
+    <td>{{ people.email }}</td> 
     <td><button><a href="/contacts/{{ people.id }}/edit">Update</a></button></td> 
     <td><button><a href="/contacts/{{ people.id }}/delete">Delete</a></button></td>
     {% endfor %}
