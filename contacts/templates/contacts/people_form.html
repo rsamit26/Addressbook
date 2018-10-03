@@ -2,12 +2,15 @@
 <html>
 <head>
 	<title>Add New Contact</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 </head>
 <body>
 <form method="POST" action="">{% csrf_token %}
+     <div class="form-group">
 {{form.as_p}}
-<input type="submit" name="Create People"/>
-
+<button class="btn btn-primary" type="submit" name="Create People">Update</button>
+     </div>
 </form>
 </body>
 </html>

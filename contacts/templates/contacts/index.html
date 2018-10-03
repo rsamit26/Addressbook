@@ -1,75 +1,67 @@
 <head>
-<style>
-body {
-    background-color: linen;
-}
-
-h1 {
-    color: maroon;
-    margin-left: 40px;
-} 
-
-table, th, td {
-    border: 1px solid black;
-    border-collapse: collapse;
-}
-
-td {
-    text-align: center;
-    height: 24px;
-}
-
-a{
-    text-decoration: none;
-}
-nav button{
-  background-color: lightgreen;
-  color: black;
-  font: sans-serif;
-  font-size: 18px;
-  border-radius: 5px;
-  width: 150px;
-  height: 60px;
-  display: inline;
-}
-
-.btn:hover
-{
-background-image:none;
-background-color:green;
-}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <style>
+        body {
+            background-color: linen;
+        }
 
 </style>
 
 </head>
 
-<nav >
-<button class="btn"><a href="/contacts/">Home</a></button>
-<button class="btn"><a href="/contacts/create">Add Contact</a></button>
+<nav class="navbar sticky-top navbar-expand-lg navbar navbar-dark bg-dark" style="border-bottom: 3px gray dashed">
+  <a class="navbar-brand" href="/contacts/">Contact Manager</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav" >
+    <ul class="navbar-nav" style="margin-left: 40px; padding-left: 40px;">
+      <li class="nav-item active">
+        <a class="nav-link " href="/contacts/" >Home <span class="sr-only">(current)</span> </a>
+      </li>
+      <li class="nav-item active"  style="padding-left: 30px;">
+        <a class="nav-link" href="/contacts/create">Add Contact <span class="sr-only">(current)</span></a>
+      </li>
+    </ul>
+  </div>
 </nav>
 
-{% if people_list %}
-<table style="width:100%">
-  <tr>
-    <th>Name</th>
-    <th>Phone</th> 
-    <th>eamil</th>
-    <th>Update</th> 
-    <th>Delete</th>
-  </tr>
-  {% for people in people_list %}
- <!-- {% url "contacts:detail" id=people.id %} -->
-  <tr>
-    <td><a href='{{ people.get_absolute_url }}'>{{ people.name }}</a></td>
-    <td>{{ people.phone }}</td>
-    <td>{{ people.email }}</td> 
-    <td><button><a href="/contacts/{{ people.id }}/edit">Update</a></button></td> 
-    <td><button><a href="/contacts/{{ people.id }}/delete">Delete</a></button></td>
-    {% endfor %}
-  </tr>
 
-</table>
+{% if people_list %}
+    <table class="table table-striped table-bordered table-hover table-dark">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Phone</th>
+            <th scope="col">eamil</th>
+            <th scope="col">Update</th>
+            <th scope="col">Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for people in people_list %}
+            <!-- {% url "contacts:detail" id=people.id %} -->
+
+            <tr>
+            <th scope="row">{{ people.id }}</th>
+            <td><a href='{{ people.get_absolute_url }}'>{{ people.name }}</a></td>
+            <td>{{ people.phone }}</td>
+            <td>{{ people.email }}</td>
+            <td>
+                <a class="btn btn-primary" href="/contacts/{{ people.id }}/edit" role="button">Update</a>
+            </td>
+            <td>
+                <a class="btn btn-danger" href="/contacts/{{ people.id }}/delete" role="button">Delete</a></button>
+            </td>
+        {% endfor %}
+        </tr>
+        </tbody>
+    </table>
 {% else %}
     <p>No contacts are available.</p>
     <button><a href="/contacts/create">Add New Contact</a></button>
 {% endif %}
+
+
